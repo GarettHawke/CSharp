@@ -47,12 +47,23 @@ namespace DungeonGameConsole
             }
         }
 
+        public byte sizeX()
+        {
+            return (byte)floor.Length;
+        }
+
+        public byte sizeY()
+        {
+            return (byte)floor[0].Length;
+        }
+
         public static Level FromXml(String name)
         {
-            Level lvl = new Level();
             XmlSerializer s = new XmlSerializer(typeof(Level));
             FileStream myFileStream = new FileStream(name, FileMode.Open);
-            return (Level)s.Deserialize(myFileStream);
+            Level lvl = (Level)s.Deserialize(myFileStream);
+            myFileStream.Close();
+            return lvl;
         }
 
         public void ToXML(String name)
@@ -70,35 +81,38 @@ namespace DungeonGameConsole
 
         public void ReadXml(XmlReader reader)
         {
-            if (reader.MoveToContent() == XmlNodeType.Element && reader.LocalName == "Item")
+            if (reader.MoveToContent() == XmlNodeType.Element && reader.LocalName == "Level")
             {
                 LvlNumber = short.Parse(reader["Number"]);
-                Name = reader["name"];
+                Name = reader["Name"];
                 if (reader.ReadToDescendant("StartX"))
                     CharacterStartX = byte.Parse(reader.ReadElementContentAsString());
-                if (reader.ReadToNextSibling("StartY"))
+                if(reader.Name == "StartY")
                     CharacterStartY = byte.Parse(reader.ReadElementContentAsString());
-                if (reader.ReadToNextSibling("EndX"))
+                if (reader.Name == "EndX")
                     CharacterEndX = byte.Parse(reader.ReadElementContentAsString());
-                if (reader.ReadToNextSibling("EndY"))
+                if (reader.Name == "EndY")
                     CharacterEndY = byte.Parse(reader.ReadElementContentAsString());
-                if (reader.ReadToNextSibling("InLevel"))
+                if (reader.Name == "InLevel")
                     NumberOfDiamonds = short.Parse(reader.ReadElementContentAsString());
-                if (reader.ReadToNextSibling("Needed"))
+                if (reader.Name == "Needed")
                     NumberOfDiamondsNeeded = short.Parse(reader.ReadElementContentAsString());
-                if (reader.ReadToNextSibling("Floor"))
+                if (reader.Name == "Floor")
                 {
                     List<FloorTile[]> rows = new List<FloorTile[]>();
-                    while (reader.MoveToContent() == XmlNodeType.Element && reader.LocalName == "Row")
+                    reader.ReadToDescendant("Row");
+                    while (reader.LocalName == "Row")
                     {
                         List<FloorTile> floorTiles = new List<FloorTile>();
-                        while (reader.MoveToContent() == XmlNodeType.Element && reader.LocalName == "FloorTile")
+                        reader.ReadToDescendant("FloorTile");
+                        while (reader.LocalName == "FloorTile")
                         {
                             FloorTile tile = new FloorTile();
                             tile.ReadXml(reader);
                             floorTiles.Add(tile);
                         }
                         rows.Add(floorTiles.ToArray());
+                        reader.Read();
                     }
                     floor = rows.ToArray();
                 }

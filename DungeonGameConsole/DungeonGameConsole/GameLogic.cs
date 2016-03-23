@@ -16,6 +16,12 @@ namespace DungeonGameConsole
         public bool SoundOn { get; set; }
         private Dictionary<string, short> score;
 
+        public GameLogic()
+        {
+            levels = new List<string>();
+            character = new Character();
+        }
+
         public void loadSavedGame()
         {
             using(var fileStream = new FileStream("../../levelsFile.txt", FileMode.Open, FileAccess.Read))
@@ -34,20 +40,52 @@ namespace DungeonGameConsole
                 using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
                 {
                     soundOn = bool.Parse(streamReader.ReadLine().Split('=')[1]);
-                    currentLevel = Level.FromXml(streamReader.ReadLine().Split('=')[1]));
+                    currentLevel = Level.FromXml(levels.ElementAt(int.Parse(streamReader.ReadLine().Split('=')[1])));
                 }
             }
         }
 
+        public List<string> getLevelList()
+        {
+            List<string> list = new List<string>();
+            foreach(var lvl in levels)
+            {
+                StringBuilder s = new StringBuilder(lvl.Length);
+                char c;
+                int counter = lvl.Length - 5;
+                do
+                {
+                    c = lvl.ElementAt(counter);
+                    s.Append(c);
+                    counter--;
+                } while (c != '/' && c != '\\' && counter != -1);
+                char[] charArray = s.Remove(s.Length - 1, 1).ToString().ToArray();
+                Array.Reverse(charArray);
+                list.Add(new string(charArray));
+            }
+            return list;
+        }
+
         public void createNewGame()
         {
-            File.Create("../../score.txt");
+            File.Create("../../score.txt").Close();
             if (score != null)
             {
                 score.Clear();
                 score = null;
             }
             currentLevel = Level.FromXml(levels.ElementAt(0));
+            saveSettings();
+        }
+
+        public bool getSoundOn()
+        {
+            return soundOn;
+        }
+
+        public void changeSoundOn()
+        {
+            soundOn = !soundOn;
             saveSettings();
         }
 
@@ -65,23 +103,19 @@ namespace DungeonGameConsole
 
         public void setLevel(short lvl)
         {
-            currentLevel = Level.FromXml(levels.ElementAt(lvl));
+            if(lvl < levels.Count)
+                currentLevel = Level.FromXml(levels.ElementAt(lvl));
         }
 
 
-        /*public bool playGame(ref Character c, ref Level lvl, GameActions act)
+        public void playGame()
         {
-            switch(act)
-            {
-                case GameActions.move:
-                    break;
-                case GameActions.open:
-                    break;
-                case GameActions.close:
-                    break;
-            }
-            return false;
-        }*/
+            character.X = currentLevel.CharacterStartX;
+            character.Y = currentLevel.CharacterStartY;
+            character.NumberOfDiamondsCollected = 0;
+            character.HasGoldenKey = false;
+            character.HasSilverKey = false;
+        }
 
         public byte getCharacterX()
         {
@@ -118,58 +152,86 @@ namespace DungeonGameConsole
                 case BackgroundType.Entrance:
                     break;
                 case BackgroundType.Exit:
-                    return true;
+                    if (character.NumberOfDiamondsCollected >= currentLevel.NumberOfDiamondsNeeded)
+                    {
+                        saveGame();
+                        return true;
+                    }
+                    break;
                 case BackgroundType.Floor:
                     if (tile.Item != null && tile.Item.Type == ItemType.Diamond)
                     {
                         tile.Item = null;
                         character.NumberOfDiamondsCollected++;
+                        character.moveBy(x, y);
+                    } else if (tile.Item == null)
+                    {
+                        character.moveBy(x, y);
                     }
-                    character.moveBy(x, y);
                     break;
             }
             return false;
         }
 
+        public byte getLevelSizeY()
+        {
+            return currentLevel.sizeY();
+        }
+
+        public byte getLevelSizeX()
+        {
+            return currentLevel.sizeX();
+        }
+
         public void openItem()
         {
-            for (sbyte i = -1; i <= 1; i += 2)
+            for (sbyte i = -1; i <= 1; i += 1)
             {
-                for (sbyte j = -1; j <= 1; j += 2)
+                for (sbyte j = -1; j <= 1; j += 1)
                 {
-                    Item item = currentLevel[character.X, character.Y].Item;
-                    if (item.Type == ItemType.Chest)
+                    if(i == 0 ^ j == 0)
                     {
-                        item.IsOpened = true;
-                        if (item.NumberOfDiamonds.HasValue)
+                        Item item = currentLevel[(byte)(character.X + i), (byte)(character.Y + j)].Item;
+                        if (item != null)
                         {
-                            character.NumberOfDiamondsCollected += item.NumberOfDiamonds.Value;
-                            item.NumberOfDiamonds = null;
+                            if (item.Type == ItemType.Chest)
+                            {
+                                item.IsOpened = true;
+                                if (item.NumberOfDiamonds.HasValue)
+                                {
+                                    character.NumberOfDiamondsCollected += item.NumberOfDiamonds.Value;
+                                    item.NumberOfDiamonds = null;
 
-                        } else if (item.HasGoldenKey.HasValue)
-                        {
-                            character.HasGoldenKey = true;
-                            item.HasGoldenKey = null;
-                        } else if (item.HasSilverKey.HasValue)
-                        {
-                            character.HasSilverKey = true;
-                            item.HasSilverKey = null;
-                        }
-                    } else if (item.Type == ItemType.LockForGoldenKey)
-                    {
-                        if (character.HasGoldenKey)
-                        {
-                            item.IsOpened = true;
-                            currentLevel[item.LockBlockX.Value, item.LockBlockY.Value].Item = null;
-                            character.HasGoldenKey = false;
-                        }
-                    } else if (item.Type == ItemType.LockForSilverKey)
-                    {
-                        if (character.HasSilverKey)
-                        {
-                            item.IsOpened = true;
-                            currentLevel[item.LockBlockX.Value, item.LockBlockY.Value].Item = null;
-                            character.HasSilverKey = false;
+                                }
+                                else if (item.HasGoldenKey.HasValue)
+                                {
+                                    character.HasGoldenKey = true;
+                                    item.HasGoldenKey = null;
+                                }
+                                else if (item.HasSilverKey.HasValue)
+                                {
+                                    character.HasSilverKey = true;
+                                    item.HasSilverKey = null;
+                                }
+                            }
+                            else if (item.Type == ItemType.LockForGoldenKey)
+                            {
+                                if (character.HasGoldenKey)
+                                {
+                                    item.IsOpened = true;
+                                    currentLevel[item.LockBlockX.Value, item.LockBlockY.Value].Item = null;
+                                    character.HasGoldenKey = false;
+                                }
+                            }
+                            else if (item.Type == ItemType.LockForSilverKey)
+                            {
+                                if (character.HasSilverKey)
+                                {
+                                    item.IsOpened = true;
+                                    currentLevel[item.LockBlockX.Value, item.LockBlockY.Value].Item = null;
+                                    character.HasSilverKey = false;
+                                }
+                            }
                         }
                     }
                 }
@@ -201,8 +263,51 @@ namespace DungeonGameConsole
 
         private void saveGame()
         {
-            //save score after lvl
-            throw new NotImplementedException();
+            Dictionary<string, short> s = new Dictionary<string, short>();
+            using (var fileStream = new FileStream("../../score.txt", FileMode.Open, FileAccess.Read))
+            {
+                using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
+                {
+                    string line;
+                    while ((line = streamReader.ReadLine()) != null)
+                    {
+                        string[] levelScore = line.Split(' ');
+                        s.Add(levelScore[0], short.Parse(levelScore[1]));
+                    }
+                }
+            }
+
+            string name = currentLevel.LvlNumber + "-" + currentLevel.Name;
+            if (s.ContainsKey(name))
+            {
+                if (character.NumberOfDiamondsCollected > s[name])
+                    s[name] = character.NumberOfDiamondsCollected;
+            }
+            else
+            {
+                s.Add(name, character.NumberOfDiamondsCollected);
+            }
+
+            using (var fileStream = new FileStream("../../score.txt", FileMode.Open, FileAccess.Write))
+            {
+                using (var streamWriter = new StreamWriter(fileStream, Encoding.UTF8))
+                {
+                    foreach (var i in s)
+                    {
+                        streamWriter.WriteLine(i.Key + " " + i.Value);
+                    }
+                }
+            }
+        }
+
+        public short getCharacterDiamonds()
+        {
+            return character.NumberOfDiamondsCollected;
+        }
+
+        public short getNumberOfNeededDiamonds()
+        {
+            return currentLevel.NumberOfDiamondsNeeded;
         }
 
         /*public void closeGame()

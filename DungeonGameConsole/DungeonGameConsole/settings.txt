@@ -1,0 +1,2 @@
+﻿soundOn=False
+currentLevel=0

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Level Number="0" Name="Test">
+  <StartX>1</StartX>
+  <StartY>1</StartY>
+  <EndX>8</EndX>
+  <EndY>9</EndY>
+  <InLevel>21</InLevel>
+  <Needed>12</Needed>
+  <Floor>
+    <Row>
+      <FloorTile Type="Wall" Hidden="False" />
+      <FloorTile Type="Wall" Hidden="False" />
+      <FloorTile Type="Wall" Hidden="False" />
+      <FloorTile Type="Wall" Hidden="False" />
+      <FloorTile Type="Wall" Hidden="False" />
+      <FloorTile Type="Wall" Hidden="False" />
+      <FloorTile Type="Wall" Hidden="False" />
+      <FloorTile Type="Wall" Hidden="False" />
+      <FloorTile Type="Wall" Hidden="False" />
+      <FloorTile Type="Wall" Hidden="False" />
+    </Row>
+    <Row>
+      <FloorTile Type="Entrance" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Water" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False">
+        <Item Type="LockForGoldenKey" IsOpen="False" BlockX="2" BlockY="6" />
+      </FloorTile>
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Wall" Hidden="False" />
+    </Row>
+    <Row>
+      <FloorTile Type="Wall" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False">
+        <Item Type="Diamond" />
+      </FloorTile>
+      <FloorTile Type="Water" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False">
+        <Item Type="Chest" IsOpen="False" Golden="True" />
+      </FloorTile>
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False">
+        <Item Type="LockBlock" />
+      </FloorTile>
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Wall" Hidden="False" />
+    </Row>
+    <Row>
+      <FloorTile Type="Wall" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Water" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Water" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False">
+        <Item Type="Diamond" />
+      </FloorTile>
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Wall" Hidden="False" />
+    </Row>
+    <Row>
+      <FloorTile Type="Wall" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False">
+        <Item Type="Chest" IsOpen="False" Diamonds="10" />
+      </FloorTile>
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Water" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Water" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False">
+        <Item Type="Diamond" />
+      </FloorTile>
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Wall" Hidden="False" />
+    </Row>
+    <Row>
+      <FloorTile Type="Wall" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Water" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False">
+        <Item Type="LockForSilverKey" IsOpen="False" BlockX="5" BlockY="5" />
+      </FloorTile>
+      <FloorTile Type="Floor" Hidden="False">
+        <Item Type="LockBlock" />
+      </FloorTile>
+      <FloorTile Type="Water" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False">
+        <Item Type="Diamond" />
+      </FloorTile>
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Wall" Hidden="False" />
+    </Row>
+    <Row>
+      <FloorTile Type="Wall" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False">
+        <Item Type="Diamond" />
+      </FloorTile>
+      <FloorTile Type="Water" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Water" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False">
+        <Item Type="Diamond" />
+      </FloorTile>
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Wall" Hidden="False" />
+    </Row>
+    <Row>
+      <FloorTile Type="Wall" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Water" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False">
+        <Item Type="Diamond" />
+      </FloorTile>
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Wall" Hidden="False" />
+    </Row>
+    <Row>
+      <FloorTile Type="Wall" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False">
+        <Item Type="Chest" IsOpen="False" Silver="True" />
+      </FloorTile>
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False">
+        <Item Type="Diamond" />
+      </FloorTile>
+      <FloorTile Type="Floor" Hidden="False">
+        <Item Type="Diamond" />
+      </FloorTile>
+      <FloorTile Type="Floor" Hidden="False">
+        <Item Type="Diamond" />
+      </FloorTile>
+      <FloorTile Type="Water" Hidden="False" />
+      <FloorTile Type="Floor" Hidden="False">
+        <Item Type="Diamond" />
+      </FloorTile>
+      <FloorTile Type="Floor" Hidden="False" />
+      <FloorTile Type="Exit" Hidden="False" />
+    </Row>
+    <Row>
+      <FloorTile Type="Wall" Hidden="False" />
+      <FloorTile Type="Wall" Hidden="False" />
+      <FloorTile Type="Wall" Hidden="False" />
+      <FloorTile Type="Wall" Hidden="False" />
+      <FloorTile Type="Wall" Hidden="False" />
+      <FloorTile Type="Wall" Hidden="False" />
+      <FloorTile Type="Wall" Hidden="False" />
+      <FloorTile Type="Wall" Hidden="False" />
+      <FloorTile Type="Wall" Hidden="False" />
+      <FloorTile Type="Wall" Hidden="False" />
+    </Row>
+  </Floor>
+</Level>
