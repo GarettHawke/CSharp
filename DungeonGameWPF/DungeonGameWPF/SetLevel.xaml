@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DungeonGameWPF"
         mc:Ignorable="d"
-        Title="SetLevel" Height="100" Width="200">
+        Title="SetLevel" Height="100" Width="250">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
@@ -16,7 +16,9 @@
             <Label>Level:</Label>
             <ComboBox Name="levelsComboBox" Width="50"></ComboBox>
             <Separator Width="30" Visibility="Hidden" />
-            <Button Name="okButton" Width="50">Ok</Button>
+            <Button Name="okButton" Width="50" IsDefault="True" Click="okButton_Click">Ok</Button>
+            <Separator Width="10" Visibility="Hidden" />
+            <Button Name="cancelButton" Width="50" IsCancel="True" Click="cancelButton_Click">Cancel</Button>
         </StackPanel>
     </Grid>
 </Window>

@@ -57,6 +57,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Logic\Character.cs" />
+    <Compile Include="Logic\FloorTile.cs" />
+    <Compile Include="Logic\GameLogic.cs" />
+    <Compile Include="Logic\Item.cs" />
+    <Compile Include="Logic\Level.cs" />
     <Compile Include="SetLevel.xaml.cs">
       <DependentUpon>SetLevel.xaml</DependentUpon>
     </Compile>
@@ -112,7 +117,25 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Icons\" />
+    <Resource Include="Textures\block.jpg" />
+    <Resource Include="Textures\chest_closed.png" />
+    <Resource Include="Textures\chest_opened.png" />
+    <Resource Include="Textures\diamond.png" />
+    <Resource Include="Textures\female.png" />
+    <Resource Include="Textures\golden_key.png" />
+    <Resource Include="Textures\golden_lock.png" />
+    <Resource Include="Textures\grasstile.png" />
+    <Resource Include="Textures\groundtile.jpg" />
+    <Resource Include="Textures\male.png" />
+    <Resource Include="Textures\silver_key.png" />
+    <Resource Include="Textures\silver_lock.png" />
+    <Resource Include="Textures\walltile.jpg" />
+    <Resource Include="Textures\watertile.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\New-64.png" />
+    <Resource Include="Icons\Play-64.png" />
+    <Resource Include="Icons\Settings-64.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

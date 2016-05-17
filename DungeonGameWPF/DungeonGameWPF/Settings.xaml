@@ -18,9 +18,9 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <Label>Character:</Label>
-            <RadioButton GroupName="character" Content="Male" VerticalAlignment="Center" IsChecked="True"/>
+            <RadioButton GroupName="character" Name="maleCh" Content="Male" VerticalAlignment="Center" IsChecked="True"/>
             <Separator Width="10" Visibility="Hidden" />
-            <RadioButton GroupName="character" Content="Female" VerticalAlignment="Center" />
+            <RadioButton GroupName="character" Name="femaleCh" Content="Female" VerticalAlignment="Center" />
         </StackPanel>
         <StackPanel Grid.Row="3" Orientation="Horizontal">
             <Label>Sound:</Label>
@@ -29,9 +29,9 @@
         </StackPanel>
         <StackPanel Grid.Row="5" Orientation="Horizontal">
             <Separator Width="20" Visibility="Hidden" />
-            <Button Name="okButton" Width="50">Ok</Button>
+            <Button Name="okButton" Width="50" IsDefault="True" Click="okButton_Click">Ok</Button>
             <Separator Width="30" Visibility="Hidden" />
-            <Button Name="cancelButton" Width="50">Cancel</Button>
+            <Button Name="cancelButton" Width="50" IsCancel="True" Click="cancelButton_Click">Cancel</Button>
         </StackPanel>
     </Grid>
 </Window>

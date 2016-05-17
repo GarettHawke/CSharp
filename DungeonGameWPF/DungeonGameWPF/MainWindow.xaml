@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DungeonGameWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="590" Width="490" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
@@ -15,35 +15,37 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
             <MenuItem Header="Game">
-                <MenuItem Name="newGame" Header="New Game" />
-                <MenuItem Name="playGame" Header="Play Game" />
-                <MenuItem Name="setLevel" Header="Set Level" />
+                <MenuItem Name="newGameMI" Header="New Game" Click="newGameMI_Click" />
+                <MenuItem Name="playGameMI" Header="Play Game" Click="playGameMI_Click" />
+                <MenuItem Name="setLevelMI" Header="Set Level" Click="setLevelMI_Click" />
                 <Separator />
-                <MenuItem Name="settings" Header="Settings" />
+                <MenuItem Name="scoreMI" Header="Score" Click="scoreMI_Click" />
+                <MenuItem Name="settingsMI" Header="Settings" Click="settingsMI_Click" />
                 <Separator />
-                <MenuItem Name="exit" Header="Exit" />
+                <MenuItem Name="exit" Header="Exit" Click="exit_Click" />
             </MenuItem>
             <MenuItem Header="Level">
-                <MenuItem Name="createLevel" Header="Create New Level" />
-                <MenuItem Name="editLevel" Header="Edit Level" />
+                <MenuItem Name="createLevelMI" Header="Create New Level" Click="createLevelMI_Click" />
+                <MenuItem Name="editLevelMI" Header="Edit Level" Click="editLevelMI_Click" />
             </MenuItem>
             <MenuItem Header="Help">
-                <MenuItem Name="about" Header="About" />
+                <MenuItem Name="controlMI" Header="Control" Click="controlMI_Click" />
+                <MenuItem Name="aboutMI" Header="About" Click="aboutMI_Click" />
             </MenuItem>
         </Menu>
-        <ToolBar Grid.Row="1">
-            <Button>
-                <Image Source="Icons/Play-64.png" />
+        <ToolBar Name="gameBar" Grid.Row="1">
+            <Button ToolTip="Play" Click="playGameMI_Click">
+                <Image Source="/Icons/Play-64.png" />
             </Button>
-            <Button>
-                <Image Source="Icons/New-64.png" />
+            <Button ToolTip="New Game" Click="newGameMI_Click">
+                <Image Source="/Icons/New-64.png" />
             </Button>
             <Separator Width="2" />
-            <Button>
+            <Button ToolTip="Settings" Click="settingsMI_Click">
                 <Image Source="Icons/Settings-64.png" />
             </Button>
         </ToolBar>
-        <Image Grid.Row="2" />
+        <Canvas Grid.Row="2" Height="480" Width="480" />
         <StatusBar Grid.Row="3">
             <Label>Diamonds: Collected:</Label>
             <TextBlock Name="collected" Text="0" />

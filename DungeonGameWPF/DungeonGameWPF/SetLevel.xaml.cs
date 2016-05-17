@@ -19,9 +19,33 @@ namespace DungeonGameWPF
     /// </summary>
     public partial class SetLevel : Window
     {
+        public int SelectedLevel { get; set; }
+
         public SetLevel()
         {
             InitializeComponent();
+        }
+
+        public SetLevel(List<string> list)
+        {
+            InitializeComponent();
+
+            foreach(var item in list)
+            {
+                levelsComboBox.Items.Add(item);
+            }
+        }
+
+        private void okButton_Click(object sender, RoutedEventArgs e)
+        {
+            SelectedLevel = levelsComboBox.SelectedIndex;
+
+            DialogResult = true;
+        }
+
+        private void cancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
         }
     }
 }
